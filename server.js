@@ -3,9 +3,17 @@ const fs = require("fs");
 const app = express();
 const { exec } = require("child_process");
 const cors = require("cors");
-const path = require("path"); // Importa el módulo 'path' de Node.js
+const path = require("path");
 
-app.use(cors());
+// Configuración de CORS
+const corsOptions = {
+  origin: "http://localhost:5173", // Reemplaza esto con la URL de tu aplicación frontend
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.post("/compile", (req, res) => {
@@ -50,6 +58,8 @@ app.post("/compile", (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log("Servidor en ejecución en el puerto 3000");
+const puerto = 3000;
+
+app.listen(puerto, () => {
+  console.log(`Servidor en ejecución en el puerto ${puerto}`);
 });
